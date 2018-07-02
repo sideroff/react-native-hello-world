@@ -1,0 +1,24 @@
+{
+  "name": "react-native-hello-world",
+  "version": "1.0.0",
+  "description": "An app I'm developing as an introduction to react native.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sideroff/react-native-hello-world.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sideroff/react-native-hello-world/issues"
+  },
+  "homepage": "https://github.com/sideroff/react-native-hello-world#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "react-native": "^0.55.4",
+    "redux": "^4.0.0"
+  }
+}
