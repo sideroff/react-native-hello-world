@@ -21,7 +21,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <View>
-        <Text>home screen</Text>
+        <Text>home screen!</Text>
         <Button title='go to Welcome' onPress={this.onButtonPress}></Button>
       </View>
     )
