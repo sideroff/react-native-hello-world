@@ -6,6 +6,12 @@ import { createLogger } from 'redux-logger'
 import reducer from './reducers'
 import { createStackNavigator } from 'react-navigation'
 
+//remove a depricated method usage warning caused by react native
+import { YellowBox } from 'react-native'
+YellowBox.ignoreWarnings([
+  'Warning: isMounted(...) is deprecated in plain JavaScript React classes.'
+])
+
 import Home from './components/Home'
 import Welcome from './components/Welcome'
 
@@ -14,9 +20,8 @@ const Router = createStackNavigator({
   Home: { screen: Home }
 })
 
-const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
-
 function configureStore(initialState) {
+  const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
   const enhancer = compose(applyMiddleware(thunkMiddleware, loggerMiddleware))
 
   return createStore(reducer, initialState, enhancer)
