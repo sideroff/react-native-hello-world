@@ -11,12 +11,18 @@ function mapStateToProps(state) {
 
 class Welcome extends React.Component {
   static navigationOptions = {
-    title: 'Home'
+    title: 'Welcome'
   }
 
   constructor(props) {
     super(props)
     this.onButtonPress = this.onButtonPress.bind(this)
+  }
+
+  onButtonPress() {
+    console.log('going to Home',this)
+
+    this.props.navigation.navigate('Home')
   }
 
   render() {
@@ -27,13 +33,9 @@ class Welcome extends React.Component {
           <Text style={styles.headingOne}>Errands</Text>
         </View>
         <View>
-          <TextInput></TextInput>
         </View>
         <Text>{JSON.stringify(this.props.test)}</Text>
-        <Button title='press me!' onPress={() => {
-          console.log('here')
-          this.props.navigation.navigate('Home')
-        }}>Press me!!</Button>
+        <Button title='press me!' onPress={this.onButtonPress}>Press me!!</Button>
       </View>
     )
   }

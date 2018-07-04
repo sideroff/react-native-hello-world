@@ -4,13 +4,14 @@ import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers'
-import { createStackNavigator } from 'react-navigator'
+import { createStackNavigator } from 'react-navigation'
 
 import Home from './components/Home'
 import Welcome from './components/Welcome'
 
-createStackNavigator({
-  Welcome, Home
+const Router = createStackNavigator({
+  Welcome: { screen: Welcome },
+  Home: { screen: Home }
 })
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
@@ -27,7 +28,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store} >
-        <Welcome />
+        <Router />
       </Provider>
     )
   }

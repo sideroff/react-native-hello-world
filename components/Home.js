@@ -1,18 +1,23 @@
 import React from 'react'
-import { View, Button } from 'react-native'
+import { View, Text, Button } from 'react-native'
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
+
+    this.onButtonPress = this.onButtonPress.bind(this)
+  }
+
+  onButtonPress() {
+    console.log(this)
+    this.props.navigation.navigate('Welcome')
   }
 
   render() {
     return (
       <View>
-        <View>home screen</View>
-        <Button title='go to welcome' onPress={() => {
-          this.props.navigation.navigate('Welcome')
-        }}></Button>
+        <Text>home screen</Text>
+        <Button title='go to Welcome' onPress={this.onButtonPress}></Button>
       </View>
     )
   }
