@@ -3,7 +3,8 @@ import { StyleSheet, View, Text, Button, FlatList } from 'react-native'
 import t from 'tcomb-form-native'
 import forms from './../forms'
 import CustomList from './CustomList'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+import actionTypes from './../actionTypes'
 
 
 const Form = t.form.Form
@@ -28,6 +29,7 @@ class Home extends React.Component {
 
     this.onButtonPress = this.onButtonPress.bind(this)
     this.onFormSubmit = this.onFormSubmit.bind(this)
+    this.onTodoMarkedDone = this.onTodoMarkedDone.bind(this)
   }
 
   onFormSubmit() {
