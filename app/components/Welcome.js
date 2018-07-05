@@ -1,7 +1,10 @@
 import React from 'react'
-import { connect } from "react-redux"
-
 import { View, Text, Button, StyleSheet } from 'react-native'
+import { connect } from "react-redux"
+import t from 'tcomb-form-native'
+const Form = t.form.Form
+
+import forms from './../forms'
 
 import actionTypes from './../actionTypes'
 
@@ -16,13 +19,19 @@ class Welcome extends React.Component {
 
   constructor(props) {
     super(props)
+
     this.onButtonPress = this.onButtonPress.bind(this)
   }
 
   onButtonPress() {
-    console.log('going to Home', this)
+    let values = this.refs.authForm.getValue()
+    console.log('here', this)
+    if (values) {
+      // TODO: save email
 
-    this.props.navigation.navigate('Home')
+      // go to home
+      this.props.navigation.navigate('Home')
+    }
   }
 
   render() {
@@ -32,9 +41,13 @@ class Welcome extends React.Component {
           <Text style={styles.headingTwo}>Welcome to</Text>
           <Text style={styles.headingOne}>Errands</Text>
         </View>
-        <View>
+        <View style={styles.authForm}>
+          <Form
+            ref='authForm'
+            type={forms.auth.type}
+            options={forms.auth.options}
+          ></Form>
         </View>
-        <Text>{JSON.stringify(this.props.test)}</Text>
         <Button title="Let's go!" onPress={this.onButtonPress} />
       </View>
     )
@@ -44,8 +57,11 @@ class Welcome extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-around',
     alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  authForm: {
+    width: 300
   },
   heading: {
     alignItems: 'center'
