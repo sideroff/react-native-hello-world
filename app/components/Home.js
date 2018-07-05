@@ -3,13 +3,21 @@ import { StyleSheet, View, Text, Button, FlatList } from 'react-native'
 import t from 'tcomb-form-native'
 import forms from './../forms'
 import CustomList from './CustomList'
+import { connect } from 'react-redux';
 
 
 const Form = t.form.Form
 
 const options = {}
 
-export default class Home extends React.Component {
+
+function mapStateToProps(state) {
+  return {
+    todos: state.todos
+  }
+}
+
+class Home extends React.Component {
 
   static navigationOptions = {
     header: null
@@ -20,20 +28,6 @@ export default class Home extends React.Component {
 
     this.onButtonPress = this.onButtonPress.bind(this)
     this.onFormSubmit = this.onFormSubmit.bind(this)
-
-    this.data = [
-      { title: '1 title', description: '2 description' },
-      { title: '2 title', description: '3 description' },
-      { title: '3 title', description: '4 description' },
-      { title: '4 title', description: '5 description' },
-    ]
-
-    // this.data = {
-    //   id1: { title: '1 title', description: '2 description' },
-    //   id2: { title: '2 title', description: '3 description' },
-    //   id3: { title: '3 title', description: '4 description' },
-    //   id4: { title: '4 title', description: '5 description' },
-    // }
   }
 
   onFormSubmit() {
@@ -45,11 +39,16 @@ export default class Home extends React.Component {
     this.props.navigation.navigate('Todo', )
   }
 
+  onTodoMarkedDone(index) {
+    console.log('here ++', index, this)
+    this.props.dispatch({ type: actionTypes.REMOVE_TODO, payload: index })
+  }
+
   render() {
     return (
       <View>
         <View>
-          <CustomList data={this.data} />
+          <CustomList data={this.props.todos} onTodoMarkedDone={this.onTodoMarkedDone} />
         </View>
         <Button title='Create Todo' onPress={this.onButtonPress}></Button>
       </View>
@@ -62,7 +61,7 @@ StyleSheet.create({
 
 })
 
-
+export default connect(mapStateToProps, dispatch => { return { dispatch } })(Home)
 // <Form
 // ref='login'
 // type={forms.login.type}

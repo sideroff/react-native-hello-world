@@ -1,28 +1,30 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button, FlatList } from 'react-native'
+import { StyleSheet, View, Text, Button, FlatList, Dimensions } from 'react-native'
 import TodoContainer from './TodoContainer'
 
-
+//should be more abstract so as to accept custom components & properties to send them
 export default class CustomList extends React.Component {
   constructor(props) {
     super(props)
-
-    console.log('custom list ', this.props)
   }
 
   render() {
     return (
-      <FlatList
-        data={this.props.data}
-        renderItem={({ item }) => {
-          console.log(item)
-          return (<TodoContainer todo={item} />)
-        }} />
+      <View style={styles.customListContainer}>
+        <FlatList
+          data={this.props.data}
+          renderItem={({ index, item }) => {
+            console.log(item)
+            return (<TodoContainer todo={item} key={index} onTodoMarkedDone={(() => { return () => { return this.props.onTodoMarkedDone(index) } })()} />)
+          }} />
+      </View>
     )
   }
 }
 
 
-StyleSheet.create({
-
+const styles = StyleSheet.create({
+  customListContainer: {
+    height: Dimensions.get('window').height / 2
+  }
 })

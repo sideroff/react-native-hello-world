@@ -4,11 +4,6 @@ import { StyleSheet, View, Text, Button, TouchableHighlight } from 'react-native
 export default class TodoContainer extends Component {
   constructor(props) {
     super(props)
-    this.onTodoMarkedDone = this.onTodoMarkedDone.bind(this)
-  }
-
-  onTodoMarkedDone() {
-    console.log('todo marked done')
   }
 
   render() {
@@ -21,7 +16,7 @@ export default class TodoContainer extends Component {
           <Text style={styles.todoDescription}>{this.props.todo.description}</Text>
         </View>
         <View style={styles.todoMarkDoneButtonContainer}>
-          <Button title='Check' onPress={this.onTodoMarkedDone} color='green' style={styles.button} />
+          <Button title='Check' onPress={this.props.onTodoMarkedDone} color='green' style={styles.button} />
         </View>
       </View>
     )
@@ -30,12 +25,19 @@ export default class TodoContainer extends Component {
 
 const styles = StyleSheet.create({
   todoContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+
     borderRadius: 4,
-    borderWidth: 0.5,
+    borderWidth: 2,
     borderColor: '#d6d7da',
+    padding: 10,
+    margin: 10
   },
   todoTitle: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   todoDescription: {
     fontStyle: 'italic'
