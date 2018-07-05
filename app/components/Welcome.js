@@ -25,11 +25,9 @@ class Welcome extends React.Component {
 
   onButtonPress() {
     let values = this.refs.authForm.getValue()
-    console.log('here', this)
     if (values) {
-      // TODO: save email
+      this.props.dispatch({ type: actionTypes.UPDATE_EMAIL, payload: values.email })
 
-      // go to home
       this.props.navigation.navigate('Home')
     }
   }

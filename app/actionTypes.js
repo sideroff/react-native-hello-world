@@ -1,3 +1,3 @@
 export default {
-  TEST: 'TEST'
+  UPDATE_EMAIL: 'UPDATE_EMAIL'
 }

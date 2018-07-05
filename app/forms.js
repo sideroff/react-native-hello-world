@@ -3,7 +3,7 @@ import t from 'tcomb-form-native'
 export default {
   auth: {
     type: t.struct({
-      email: t.String
+      email: t.maybe(t.String)
     }),
     options: {
       fields: {
