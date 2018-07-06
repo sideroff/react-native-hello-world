@@ -22,6 +22,7 @@ const Router = createStackNavigator({
   Home: { screen: Home },
   TodoView: { screen: TodoView },
   TodoEdit: { screen: TodoEdit },
+  TodoCreate: { screen: TodoEdit },
 })
 
 function configureStore(initialState) {

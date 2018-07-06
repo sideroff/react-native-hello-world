@@ -12,14 +12,13 @@ const defaultState = [
 export default (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.ADD_TODO:
-      return [...state, payload]
+      return [...state, action.payload.data]
     case actionTypes.REMOVE_TODO:
       return [
         ...state.slice(0, action.payload),
         ...state.slice(action.payload + 1)
       ]
     case actionTypes.UPDATE_TODO:
-      console.log('reducer', action)
       return [
         ...state.slice(0, action.payload.index),
         Object.assign({}, state[action.payload.index], action.payload.data),

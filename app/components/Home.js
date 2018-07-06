@@ -29,7 +29,7 @@ class Home extends React.Component {
 
     this.todoEdit = false
 
-    this.onButtonPress = this.onButtonPress.bind(this)
+    this.onCreateTodoPress = this.onCreateTodoPress.bind(this)
     this.onFormSubmit = this.onFormSubmit.bind(this)
     this.onTodoMarkedDone = this.onTodoMarkedDone.bind(this)
     this.onTodoPressed = this.onTodoPressed.bind(this)
@@ -42,13 +42,17 @@ class Home extends React.Component {
     console.log(this.refs)
   }
 
-  onButtonPress() {
-    this.props.navigation.navigate('Todo', )
+  onCreateTodoPress() {
+    this.props.navigation.navigate('TodoCreate', { onTodoSave: this.onTodoSave })
   }
 
   onTodoPressed(index) {
     console.log('onTodoPressed ', index, this)
-    this.props.navigation.navigate('TodoView', { todo: this.props.todos[index], index, onTodoEditPressed: this.onTodoEditPressed })
+    this.props.navigation.navigate('TodoView', {
+      todo: this.props.todos[index],
+      index,
+      onTodoEditPressed: this.onTodoEditPressed
+    })
   }
 
   onTodoEditPressed(index, data) {
@@ -56,14 +60,14 @@ class Home extends React.Component {
     this.props.navigation.navigate('TodoEdit', {
       todo: this.props.todos[index],
       index,
-      onTodoUpdatePressed: this.onTodoUpdatePressed,
       onTodoSave: this.onTodoSave
     })
   }
 
   onTodoSave(index, values) {
     console.log('onTodoSave', index, values, this)
-    this.props.dispatch({ type: actionTypes.UPDATE_TODO, payload: { index: index, data: values } })
+    let type = index ? actionTypes.UPDATE_TODO : actionTypes.ADD_TODO
+    this.props.dispatch({ type, payload: { index: index, data: values } })
     this.props.navigation.navigate('Home')
   }
 
@@ -83,7 +87,7 @@ class Home extends React.Component {
             onTodoPressed={this.onTodoPressed}
             onTodoMarkedDone={this.onTodoMarkedDone} />
         </View>
-        <Button title='Create Todo' onPress={this.onButtonPress}></Button>
+        <Button title='Create Todo' onPress={this.onCreateTodoPress}></Button>
       </View>
     )
   }
