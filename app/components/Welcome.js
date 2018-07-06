@@ -1,15 +1,18 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { connect } from "react-redux"
 import t from 'tcomb-form-native'
 const Form = t.form.Form
 
 import forms from './../forms'
 
+import Button from './Button'
 import actionTypes from './../actionTypes'
 
 function mapStateToProps(state) {
-  return { test: state.currentUser.test, stateProp: 321 }
+  return {
+    isLoggingIn: state.flags.isLoggingIn
+  }
 }
 
 class Welcome extends React.Component {
@@ -25,11 +28,13 @@ class Welcome extends React.Component {
 
   onButtonPress() {
     let values = this.refs.authForm.getValue()
-    if (values) {
-      this.props.dispatch({ type: actionTypes.UPDATE_EMAIL, payload: values.email })
+    this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: true })
+    // auth with firebase
+    // if (values) {
+    //   this.props.dispatch({ type: actionTypes.UPDATE_EMAIL, payload: values.email })
 
-      this.props.navigation.navigate('Home')
-    }
+    //   this.props.navigation.navigate('Home')
+    // }
   }
 
   render() {
@@ -46,7 +51,7 @@ class Welcome extends React.Component {
             options={forms.auth.options}
           ></Form>
         </View>
-        <Button title="Let's go!" onPress={this.onButtonPress} />
+        <Button title="Let's go!" onPress={this.onButtonPress} isPerformingActivity={this.props.isLoggingIn} />
       </View>
     )
   }

@@ -22,7 +22,6 @@ export default class TodoContainer extends Component {
           <Button title='Check' onPress={this.props.onTodoMarkedDone} color='green' style={styles.button} />
         </View>
       </View>
-
     )
   }
 }

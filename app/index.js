@@ -5,6 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers'
 import { createStackNavigator } from 'react-navigation'
+import * as firebase from 'firebase'
 
 //remove a depricated method usage warning caused by react native
 import { YellowBox } from 'react-native'
@@ -25,6 +26,8 @@ const Router = createStackNavigator({
   TodoCreate: { screen: TodoEdit },
 })
 
+
+
 function configureStore(initialState) {
   const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
   const enhancer = compose(applyMiddleware(thunkMiddleware, loggerMiddleware))
@@ -35,6 +38,16 @@ function configureStore(initialState) {
 let store = configureStore({})
 
 export default class App extends Component {
+
+  componentWillMount() {
+    const firebaseConfig = {
+      apiKey: 'AIzaSyAHAJoCnJ0XGkzIbI6fLx_gZVLVI29efWY',
+      authDomain: 'errands-6eb05.firebaseapp.com'
+    }
+
+    firebase.initializeApp(firebaseConfig)
+  }
+
   render() {
     return (
       <Provider store={store} >
