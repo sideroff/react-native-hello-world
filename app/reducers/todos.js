@@ -1,5 +1,5 @@
 import actionTypes from './../actionTypes'
-const defaultState =  [
+const defaultState = [
   { title: '1 title', description: '2 description' },
   { title: '2 title', description: '3 description' },
   { title: '3 title', description: '4 description' },
@@ -14,7 +14,17 @@ export default (state = defaultState, action) => {
     case actionTypes.ADD_TODO:
       return [...state, payload]
     case actionTypes.REMOVE_TODO:
-      return [...state.slice(0, action.payload), ...state.slice(action.payload + 1)]
+      return [
+        ...state.slice(0, action.payload),
+        ...state.slice(action.payload + 1)
+      ]
+    case actionTypes.UPDATE_TODO:
+      console.log('reducer', action)
+      return [
+        ...state.slice(0, action.payload.index),
+        Object.assign({}, state[action.payload.index], action.payload.data),
+        ...state.slice(action.payload + 1)
+      ]
     default:
       return state
   }

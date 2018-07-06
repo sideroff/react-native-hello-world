@@ -14,14 +14,18 @@ export default class CustomList extends React.Component {
         <FlatList
           data={this.props.data}
           renderItem={({ index, item }) => {
-            console.log(item)
-            return (<TodoContainer todo={item} key={index} onTodoPressed={() => this.props.onTodoPressed(index)} onTodoMarkedDone={ () => this.props.onTodoMarkedDone(index) } />)
+            return (
+              <TodoContainer
+                todo={item}
+                key={index}
+                onTodoPressed={() => this.props.onTodoPressed(index)}
+                onTodoMarkedDone={() => this.props.onTodoMarkedDone(index)} />
+            )
           }} />
       </View>
     )
   }
 }
-
 
 const styles = StyleSheet.create({
   customListContainer: {

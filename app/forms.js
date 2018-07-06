@@ -22,5 +22,12 @@ export default {
     options: {
 
     }
+  },
+  todoCreate: {
+    type: t.struct({
+      title: t.String,
+      description: t.String
+    }),
+    options: {}
   }
 }
