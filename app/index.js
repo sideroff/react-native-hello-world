@@ -14,10 +14,12 @@ YellowBox.ignoreWarnings([
 
 import Home from './components/Home'
 import Welcome from './components/Welcome'
+import TodoView from './components/TodoView'
 
 const Router = createStackNavigator({
   Welcome: { screen: Welcome },
-  Home: { screen: Home }
+  Home: { screen: Home },
+  TodoView: { screen: TodoView }
 })
 
 function configureStore(initialState) {

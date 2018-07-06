@@ -30,6 +30,7 @@ class Home extends React.Component {
     this.onButtonPress = this.onButtonPress.bind(this)
     this.onFormSubmit = this.onFormSubmit.bind(this)
     this.onTodoMarkedDone = this.onTodoMarkedDone.bind(this)
+    this.onTodoPressed = this.onTodoPressed.bind(this)
   }
 
   onFormSubmit() {
@@ -41,6 +42,11 @@ class Home extends React.Component {
     this.props.navigation.navigate('Todo', )
   }
 
+  onTodoPressed(index) {
+    console.log('pressed todo ', index, this)
+    this.props.navigation.navigate('TodoView', { todo: this.props.todos[index] })
+  }
+
   onTodoMarkedDone(index) {
     console.log('here ++', index, this)
     this.props.dispatch({ type: actionTypes.REMOVE_TODO, payload: index })
@@ -50,7 +56,7 @@ class Home extends React.Component {
     return (
       <View>
         <View>
-          <CustomList data={this.props.todos} onTodoMarkedDone={this.onTodoMarkedDone} />
+          <CustomList data={this.props.todos} onTodoPressed={this.onTodoPressed} onTodoMarkedDone={this.onTodoMarkedDone} />
         </View>
         <Button title='Create Todo' onPress={this.onButtonPress}></Button>
       </View>

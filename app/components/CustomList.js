@@ -15,7 +15,7 @@ export default class CustomList extends React.Component {
           data={this.props.data}
           renderItem={({ index, item }) => {
             console.log(item)
-            return (<TodoContainer todo={item} key={index} onTodoMarkedDone={ () => this.props.onTodoMarkedDone(index) } />)
+            return (<TodoContainer todo={item} key={index} onTodoPressed={() => this.props.onTodoPressed(index)} onTodoMarkedDone={ () => this.props.onTodoMarkedDone(index) } />)
           }} />
       </View>
     )
