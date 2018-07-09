@@ -1,4 +1,4 @@
 export default {
   loginForm: 'loginForm',
-  registerForm: 'registerForm'
+  registerForm: 'registerForm',
 }

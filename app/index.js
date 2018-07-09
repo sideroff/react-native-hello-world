@@ -4,9 +4,13 @@ import { Provider } from 'react-redux'
 import { View, Text } from 'react-native'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import reducer from './reducers'
-import { createStackNavigator } from 'react-navigation'
+import { TabNavigator } from 'react-navigation'
 
+import Home from './components/Home'
+import Profile from './components/Profile'
+import Settings from './components/Settings'
+
+import reducer from './reducers'
 
 //remove a depricated method usage warning caused by react native
 import { YellowBox } from 'react-native'
@@ -14,23 +18,11 @@ YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated in plain JavaScript React classes.'
 ])
 
-import Home from './components/Home'
-import Welcome from './components/Welcome'
-import TodoView from './components/TodoView'
-import TodoEdit from './components/TodoEdit'
-import Footer from './components/Footer'
-
-import actionTypes from './actionTypes'
-import navigationService from './navigationService'
-
-const Router = createStackNavigator({
+const tabNavigation = new TabNavigator({
   Home: { screen: Home },
-  Welcome: { screen: Welcome },
-  TodoView: { screen: TodoView },
-  TodoEdit: { screen: TodoEdit },
-  TodoCreate: { screen: TodoEdit },
+  Profile: { screen: Profile },
+  Settings: { screen: Settings },
 })
-
 
 function configureStore(initialState) {
   const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
@@ -65,10 +57,10 @@ export default class App extends Component {
 
       let path = 'Welcome'
       if (user) {
-        path = 'Home'
+        path = 'Todos'
       }
 
-      navigationService.navigate('Home')
+      navigationService.navigate('Todos')
     })
   }
 
@@ -76,10 +68,9 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <Router ref={navigationRef => navigationService.init(navigationRef)} />
+          <Home />
           <Footer />
         </View>
-
       </Provider>
     )
   }
