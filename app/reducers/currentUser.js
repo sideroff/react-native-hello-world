@@ -1,11 +1,13 @@
 import actionTypes from './../actionTypes'
 
-export default (state = {}, action) => {
 
+export default (state = {}, action) => {
   switch (action.type) {
-    case actionTypes.UPDATE_EMAIL:
-      state = Object.assign({}, state, { email: action.payload })
-      return state
+    case actionTypes.UPDATE_CURRENT_USER:
+      if (!action.payload) {
+        return {}
+      }
+      return action.payload
     default:
       return state
   }

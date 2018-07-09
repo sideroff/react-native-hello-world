@@ -1,26 +1,35 @@
 import t from 'tcomb-form-native'
 
 export default {
-  auth: {
+  register: {
     type: t.struct({
-      email: t.maybe(t.String)
-    }),
-    options: {
-      fields: {
-        email: {
-          label: 'What is your email?'
-        }
-      }
-    }
-  },
-  login: {
-    type: t.struct({
-      name: t.String,
+      email: t.String,
       password: t.String,
       terms: t.Boolean
     }),
     options: {
+      fields: {
+        password: {
+          secureTextEntry: true
+        },
+        terms: {
+          label: 'I agree to the terms and conditions.'
+        }
+      }
 
+    }
+  },
+  login: {
+    type: t.struct({
+      email: t.String,
+      password: t.String
+    }),
+    options: {
+      fields: {
+        password: {
+          secureTextEntry: true
+        }
+      }
     }
   },
   todoCreate: {

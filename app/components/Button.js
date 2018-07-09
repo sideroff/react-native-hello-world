@@ -21,7 +21,7 @@ export default class Button extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={this.props.style}>
         <TouchableOpacity onPress={this.onPress} style={styles.touchable} disabled={this.props.isPerformingActivity}>
           {this.getValidButtonCOntents()}
         </TouchableOpacity>
