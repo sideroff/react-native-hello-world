@@ -3,7 +3,9 @@ import constants from './../constants'
 
 const defaultState = {
   currentlyEditedTodoIndex: null,
-  activeWelcomeForm: constants.loginForm
+  activeWelcomeForm: constants.loginForm,
+  isRegistering: false,
+  isLoggingIn: false,
 }
 
 export default (state = defaultState, action) => {

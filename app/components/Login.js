@@ -1,45 +1,63 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { View, Text } from 'react-native'
 import t from 'tcomb-form-native'
+import * as firebase from 'firebase'
+
+import Button from './Button'
 
 import forms from './../forms'
+import actionTypes from './../actionTypes'
 
 const Form = t.form.Form
 
 function mapStateToProps(state) {
-  return {}
+  return {
+    isLoggingIn: state.flags.isLoggingIn,
+    loginFormMessage: state.messages.loginFormMessage,
+  }
 }
 
 class Login extends Component {
   constructor(props) {
     super(props)
+
+    this.onSubmit = this.onSubmit.bind(this)
+    this.login = this.login.bind(this)
   }
 
   login({ email, password }) {
-    dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: true })
+    this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: true })
     firebase.auth().signInWithEmailAndPassword(email, password).then(response => {
       console.log('login response', response)
-      dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: false })
+      this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: false })
     }).catch(error => {
       console.log('login error', error)
-      dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: false })
-      dispatch({ type: actionTypes.UPDATE_LOGGING_IN_MESSAGE, payload: error.message })
+      this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: false })
+      this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_MESSAGE, payload: error.message })
     })
   }
 
   onSubmit() {
-    let values = this.refs.registerForm.getValue()
+    let values = this.refs['loginForm'].getValue()
     if (values) {
+      console.log(values)
       this.login(values)
     }
   }
 
   render() {
-    return (<Form
-      ref='loginForm'
-      type={forms.login.type}
-      options={forms.login.options}
-    ></Form>)
+    return (
+      <View>
+        <Form
+          ref='loginForm'
+          type={forms.login.type}
+          options={forms.login.options}
+        ></Form>
+        <Button title='Login' onPress={this.onSubmit} isPerformingActivity={this.props.isLoggingIn} />
+        <Text>{this.props.loginFormMessage}</Text>
+      </View>
+    )
   }
 }
 

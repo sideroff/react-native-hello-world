@@ -1,38 +1,47 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import t from 'tcomb-form-native'
+import * as firebase from 'firebase'
 
 import Button from './Button'
 
 import forms from './../forms'
+import actionTypes from './../actionTypes'
 
 const Form = t.form.Form
 
 function mapStateToProps(state) {
-  return {}
+  return {
+    isRegistering: state.flags.isRegistering,
+    registerFormMessage: state.messages.registerFormMessage,
+  }
 }
 
 class Register extends Component {
   constructor(props) {
     super(props)
+
+    this.onSubmit = this.onSubmit.bind(this)
+    this.register = this.register.bind(this)
   }
 
   register({ email, password, acceptedTerms }) {
-    dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: true })
+    this.props.dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: true })
     firebase.auth().createUserWithEmailAndPassword(email, password).then(response => {
       console.log('reg response', response)
-      dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: false })
+      this.props.dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: false })
     }).catch(error => {
       console.log('reg error', error)
-      dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: false })
-      dispatch({ type: actionTypes.UPDATE_REGISTERING_MESSAGE, payload: error.message })
+      this.props.dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: false })
+      this.props.dispatch({ type: actionTypes.UPDATE_REGISTERING_MESSAGE, payload: error.message })
 
     })
   }
 
   onSubmit() {
-    let values = this.refs.registerForm.getValue()
+    let values = this.refs['registerForm'].getValue()
+    console.log('here')
     if (values) {
       this.register(values)
     }
@@ -46,7 +55,8 @@ class Register extends Component {
           type={forms.register.type}
           options={forms.register.options}
         ></Form>
-        <Button></Button>
+        <Text>{this.props.registerFormMessage}</Text>
+        <Button title='Register' onPress={this.onSubmit} isPerformingActivity={this.props.isRegistering} />
       </View>
     )
   }
