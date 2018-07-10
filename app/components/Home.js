@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { createStackNavigator } from 'react-navigation'
 
-import Todos from './components/Todos'
-import Welcome from './components/Welcome'
-import TodoView from './components/TodoView'
-import TodoEdit from './components/TodoEdit'
-import Footer from './components/Footer'
+import Todos from './Todos'
+import Welcome from './Welcome'
+import TodoView from './TodoView'
+import TodoEdit from './TodoEdit'
 
-import navigationService from './navigationService'
+import navigationService from './../navigationService'
 
 const Router = createStackNavigator({
   Todos: { screen: Todos },

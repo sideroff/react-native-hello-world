@@ -4,7 +4,6 @@ import { Animated, Easing, StyleSheet, View, Text, Button, TouchableOpacity } fr
 export default class TodoContainer extends Component {
   constructor(props) {
     super(props)
-    console.log('todoContainer', this)
   }
 
   render() {

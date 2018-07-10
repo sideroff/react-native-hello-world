@@ -6,29 +6,24 @@ import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { TabNavigator } from 'react-navigation'
 
-import Home from './components/Home'
-import Profile from './components/Profile'
-import Settings from './components/Settings'
 
-import reducer from './reducers'
+import BottomTabNavigator from './components/BottomTabNavigator'
 
-//remove a depricated method usage warning caused by react native
+import actionTypes from './actionTypes'
+import rootReducer from './reducers'
+
+// remove a depricated method usage warning caused by react native
 import { YellowBox } from 'react-native'
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated in plain JavaScript React classes.'
 ])
 
-const tabNavigation = new TabNavigator({
-  Home: { screen: Home },
-  Profile: { screen: Profile },
-  Settings: { screen: Settings },
-})
 
 function configureStore(initialState) {
   const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
   const enhancer = compose(applyMiddleware(thunkMiddleware, loggerMiddleware))
 
-  return createStore(reducer, initialState, enhancer)
+  return createStore(rootReducer, initialState, enhancer)
 }
 
 let store = configureStore({})
@@ -37,6 +32,7 @@ export default class App extends Component {
   componentWillMount() {
     // importing here because of:
     // https://github.com/cht8687/react-listview-sticky-header/issues/6#issuecomment-403214039
+
     const firebase = require('firebase')
 
     const firebaseConfig = {
@@ -54,13 +50,6 @@ export default class App extends Component {
 
     firebase.auth().onAuthStateChanged(user => {
       store.dispatch({ type: actionTypes.UPDATE_CURRENT_USER, payload: user })
-
-      let path = 'Welcome'
-      if (user) {
-        path = 'Todos'
-      }
-
-      navigationService.navigate('Todos')
     })
   }
 
@@ -68,8 +57,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <Home />
-          <Footer />
+          <BottomTabNavigator />
         </View>
       </Provider>
     )

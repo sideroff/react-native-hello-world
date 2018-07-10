@@ -93,9 +93,4 @@ class Todos extends React.Component {
   }
 }
 
-
-StyleSheet.create({
-
-})
-
 export default connect(mapStateToProps, dispatch => { return { dispatch } })(Todos)

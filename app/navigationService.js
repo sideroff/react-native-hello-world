@@ -15,7 +15,6 @@ function navigate(routeName, params) {
   )
 }
 
-
 export default {
   init,
   navigate,

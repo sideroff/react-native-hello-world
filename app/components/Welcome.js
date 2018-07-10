@@ -117,7 +117,6 @@ class Welcome extends React.Component {
     )
   }
 
-
   render() {
     return (
       <View style={styles.container}>

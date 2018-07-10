@@ -1,6 +1,5 @@
 import actionTypes from './../actionTypes'
 
-
 export default (state = {}, action) => {
   switch (action.type) {
     case actionTypes.UPDATE_CURRENT_USER:
