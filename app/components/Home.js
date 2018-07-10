@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { createStackNavigator } from 'react-navigation'
 
 import Todos from './Todos'
-import Welcome from './Welcome'
+import Welcome from './Authenticate'
 import TodoView from './TodoView'
 import TodoEdit from './TodoEdit'
 

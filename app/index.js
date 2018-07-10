@@ -6,8 +6,7 @@ import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { TabNavigator } from 'react-navigation'
 
-
-import BottomTabNavigator from './components/BottomTabNavigator'
+import LoadingAuthOrApp from './components/LoadingAuthOrApp'
 
 import actionTypes from './actionTypes'
 import rootReducer from './reducers'
@@ -45,7 +44,7 @@ export default class App extends Component {
     }
 
     if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
+      firebase.initializeApp(firebaseConfig)
     }
 
     firebase.auth().onAuthStateChanged(user => {
@@ -57,7 +56,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <BottomTabNavigator />
+          <LoadingAuthOrApp />
         </View>
       </Provider>
     )

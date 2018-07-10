@@ -1,6 +1,6 @@
 import actionTypes from './../actionTypes'
 
-export default (state = {}, action) => {
+export default (state = null, action) => {
   switch (action.type) {
     case actionTypes.UPDATE_CURRENT_USER:
       if (!action.payload) {
