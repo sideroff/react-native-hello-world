@@ -63,12 +63,15 @@ class Todos extends React.Component {
 
   onTodoSave(index, values) {
     let type = index ? actionTypes.UPDATE_TODO : actionTypes.ADD_TODO
-    console.log(this.props.currentUser.uid)
 
-    // //TODO : create todo in firebase
-    // firebase.database().ref('/todos/')
-    // this.props.dispatch({ type, payload: { index: index, data: values } })
-    // this.props.navigation.navigate('Todos')
+    let newTodo = Object.assign({}, values, { uid: this.props.currentUser.uid })
+    console.log('adding', newTodo)
+
+    firebase.database().ref('/todos/').push(newTodo).then(response => {
+      this.props.navigation.navigate('Todos')
+    }).catch(error => {
+      console.log('errored', error)
+    })
   }
 
 
