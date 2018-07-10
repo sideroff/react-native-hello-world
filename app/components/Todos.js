@@ -1,11 +1,13 @@
 import React from 'react'
 import { StyleSheet, View, Text, Button, FlatList } from 'react-native'
 import t from 'tcomb-form-native'
-import forms from './../forms'
-import CustomList from './CustomList'
 import { connect } from 'react-redux'
-import actionTypes from './../actionTypes'
+import * as firebase from 'firebase'
 
+import CustomList from './CustomList'
+
+import actionTypes from './../actionTypes'
+import forms from './../forms'
 
 const Form = t.form.Form
 
@@ -14,7 +16,8 @@ const options = {}
 
 function mapStateToProps(state) {
   return {
-    todos: state.todos
+    currentUser: state.currentUser,
+    todos: state.todos,
   }
 }
 
@@ -30,16 +33,10 @@ class Todos extends React.Component {
     this.todoEdit = false
 
     this.onCreateTodoPress = this.onCreateTodoPress.bind(this)
-    this.onFormSubmit = this.onFormSubmit.bind(this)
     this.onTodoMarkedDone = this.onTodoMarkedDone.bind(this)
     this.onTodoPressed = this.onTodoPressed.bind(this)
     this.onTodoEditPressed = this.onTodoEditPressed.bind(this)
     this.onTodoSave = this.onTodoSave.bind(this)
-  }
-
-  onFormSubmit() {
-    console.log('submit', this)
-    console.log(this.refs)
   }
 
   onCreateTodoPress() {
@@ -65,10 +62,13 @@ class Todos extends React.Component {
   }
 
   onTodoSave(index, values) {
-    console.log('onTodoSave', index, values, this)
     let type = index ? actionTypes.UPDATE_TODO : actionTypes.ADD_TODO
-    this.props.dispatch({ type, payload: { index: index, data: values } })
-    this.props.navigation.navigate('Todos')
+    console.log(this.props.currentUser.uid)
+
+    // //TODO : create todo in firebase
+    // firebase.database().ref('/todos/')
+    // this.props.dispatch({ type, payload: { index: index, data: values } })
+    // this.props.navigation.navigate('Todos')
   }
 
 

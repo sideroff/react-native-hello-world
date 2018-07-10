@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { View, Text } from 'react-native'
+import { View, Text, NetInfo } from 'react-native'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { TabNavigator } from 'react-navigation'
@@ -50,6 +50,9 @@ export default class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       store.dispatch({ type: actionTypes.UPDATE_CURRENT_USER, payload: user })
     })
+
+    console.log('topLevel', NetInfo)
+    console.log(NetInfo.isConnected)
   }
 
   render() {

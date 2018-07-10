@@ -29,10 +29,8 @@ class Login extends Component {
   login({ email, password }) {
     this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: true })
     firebase.auth().signInWithEmailAndPassword(email, password).then(response => {
-      console.log('login response', response)
       this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: false })
     }).catch(error => {
-      console.log('login error', error)
       this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_FLAG, payload: false })
       this.props.dispatch({ type: actionTypes.UPDATE_LOGGING_IN_MESSAGE, payload: error.message })
     })

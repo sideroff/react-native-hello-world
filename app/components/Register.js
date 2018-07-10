@@ -29,10 +29,8 @@ class Register extends Component {
   register({ email, password, acceptedTerms }) {
     this.props.dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: true })
     firebase.auth().createUserWithEmailAndPassword(email, password).then(response => {
-      console.log('reg response', response)
       this.props.dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: false })
     }).catch(error => {
-      console.log('reg error', error)
       this.props.dispatch({ type: actionTypes.UPDATE_REGISTERING_FLAG, payload: false })
       this.props.dispatch({ type: actionTypes.UPDATE_REGISTERING_MESSAGE, payload: error.message })
 
