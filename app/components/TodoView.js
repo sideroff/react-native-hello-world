@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import {
+  View,
+  Text,
+  Button
+} from 'react-native'
 
 export default class TodoView extends Component {
   constructor(props) {
@@ -8,8 +12,6 @@ export default class TodoView extends Component {
     this.data = this.props.navigation.getParam('todo', null)
     this.key = this.props.navigation.getParam('key')
     this.onTodoEditPressed = this.props.navigation.getParam('onTodoEditPressed')
-
-    console.log('todo view', this.data)
   }
 
   render() {

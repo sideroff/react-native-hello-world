@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import Loading from './Loading'
 import Authenticate from './Authenticate'
@@ -17,7 +16,7 @@ class LoadingAuthOrApp extends Component {
     super(props)
   }
 
-  render() {    
+  render() {
     let CorrectComponent = Authenticate
 
     if (!this.props.currentUser) {
@@ -33,4 +32,4 @@ class LoadingAuthOrApp extends Component {
 }
 
 
-export default connect(mapStateToProps, dispatch => {return {dispatch}})(LoadingAuthOrApp)
+export default connect(mapStateToProps, dispatch => { return { dispatch } })(LoadingAuthOrApp)

@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
-import { Animated, Easing, StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  TouchableOpacity
+} from 'react-native'
 
 export default class TodoContainer extends Component {
   constructor(props) {

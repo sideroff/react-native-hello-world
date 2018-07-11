@@ -1,5 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button, FlatList, Dimensions } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Dimensions
+} from 'react-native'
+
+
 import TodoContainer from './TodoContainer'
 
 //should be more abstract so as to accept custom components & properties to send them

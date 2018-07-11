@@ -1,17 +1,15 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button, FlatList } from 'react-native'
-import t from 'tcomb-form-native'
+import {
+  View,
+  Button,
+} from 'react-native'
 import { connect } from 'react-redux'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 
 import CustomList from './CustomList'
 
 import actionTypes from './../actionTypes'
-import forms from './../forms'
 
-const Form = t.form.Form
-
-const options = {}
 
 
 function mapStateToProps(state) {
@@ -103,7 +101,6 @@ class Todos extends React.Component {
       })
     }
   }
-
 
   onTodoMarkedDone(index) {
     firebase.database().ref(`/todos/${this.props.todos[index].key}`).remove().then(response => {

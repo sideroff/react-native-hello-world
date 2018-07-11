@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import { ActivityIndicator, Easing, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import {
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity
+} from 'react-native'
 
-export default class Button extends React.Component {
+export default class Button extends Component {
   constructor(props) {
     super(props)
 

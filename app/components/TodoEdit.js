@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Button } from 'react-native'
+import {
+  View,
+  Button
+} from 'react-native'
 import t from 'tcomb-form-native'
+
+
 import forms from './../forms'
 
 const Form = t.form.Form

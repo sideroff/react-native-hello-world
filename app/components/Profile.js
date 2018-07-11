@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 
 import Button from './Button'
 
-import actionTypes from './../actionTypes'
 
 function mapStateToProps(state) {
   return {}
