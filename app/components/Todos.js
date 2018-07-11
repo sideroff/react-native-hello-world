@@ -59,12 +59,15 @@ class Todos extends React.Component {
     })
   }
 
+  componentWillUnmount() {
+    //TODO remove callbacks
+  }
+
   onCreateTodoPress() {
     this.props.navigation.navigate('TodoCreate', { onTodoSave: this.onTodoSave })
   }
 
   onTodoPressed(key) {
-    console.log('onTodoPressed ', key, this)
     this.props.navigation.navigate('TodoView', {
       todo: this.props.todos[key],
       key,
@@ -84,7 +87,6 @@ class Todos extends React.Component {
     if (key) {
       let editedTodo = Object.assign(this.props.todos[key], values)
       firebase.database().ref(`/todos/${key}`).set(editedTodo).then(response => {
-        console.log('todo was edited')
         this.props.navigation.navigate('Todos')
       }).catch(error => {
         console.log('edit failed', error)
@@ -92,7 +94,6 @@ class Todos extends React.Component {
 
     } else {
       let newTodo = Object.assign({}, values, { uid: this.props.currentUser.uid })
-      console.log('adding', newTodo)
 
       firebase.database().ref('/todos/').push(newTodo).then(response => {
         this.props.navigation.navigate('Todos')

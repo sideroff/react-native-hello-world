@@ -32,4 +32,4 @@ class LoadingAuthOrApp extends Component {
 }
 
 
-export default connect(mapStateToProps, dispatch => { return { dispatch } })(LoadingAuthOrApp)
+export default connect(mapStateToProps)(LoadingAuthOrApp)

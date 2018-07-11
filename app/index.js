@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { View, Text, NetInfo } from 'react-native'
-import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger'
-import { TabNavigator } from 'react-navigation'
+import { View } from 'react-native'
+import store from './store'
+
+import netInfo from './netInfo'
 
 import LoadingAuthOrApp from './components/LoadingAuthOrApp'
 
 import actionTypes from './actionTypes'
-import rootReducer from './reducers'
 
 // remove a depricated method usage warning caused by react native
 // https://github.com/firebase/firebase-js-sdk/issues/97
@@ -19,21 +17,11 @@ YellowBox.ignoreWarnings([
   'Setting a timer'
 ])
 
-
-function configureStore(initialState) {
-  const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
-  const enhancer = compose(applyMiddleware(thunkMiddleware, loggerMiddleware))
-
-  return createStore(rootReducer, initialState, enhancer)
-}
-
-let store = configureStore({})
-
 export default class App extends Component {
   componentWillMount() {
+    netInfo.init(store.dispatch)
     // importing here because of:
     // https://github.com/cht8687/react-listview-sticky-header/issues/6#issuecomment-403214039
-
     const firebase = require('firebase')
 
     const firebaseConfig = {
@@ -52,9 +40,6 @@ export default class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       store.dispatch({ type: actionTypes.UPDATE_CURRENT_USER, payload: user })
     })
-
-    console.log('topLevel', NetInfo)
-    console.log(NetInfo.isConnected)
   }
 
   render() {

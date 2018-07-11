@@ -1,8 +1,5 @@
 import actionTypes from './../actionTypes'
-import {weHaveInternet} from './../netInfo'
-
 const defaultState = {}
-
 
 export default (state = defaultState, action) => {
   let diff = {}

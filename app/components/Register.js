@@ -42,7 +42,6 @@ class Register extends Component {
 
   onSubmit() {
     let values = this.refs['registerForm'].getValue()
-    console.log('here')
     if (values) {
       this.register(values)
     }

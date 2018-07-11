@@ -18,8 +18,6 @@ export default class TodoEdit extends Component {
     this.key = this.props.navigation.getParam('key')
     this.onTodoSave = this.props.navigation.getParam('onTodoSave')
     this.onPress = this.onPress.bind(this)
-
-    console.log('todo edit', this.key)
   }
 
   onPress() {
