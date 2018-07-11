@@ -39,45 +39,79 @@ class Todos extends React.Component {
     this.onTodoSave = this.onTodoSave.bind(this)
   }
 
+
+  componentDidMount() {
+    if (this.props.todos
+      && typeof this.props.todos === 'object'
+      && this.props.todos.length > 0) return
+
+    let ref = firebase.database().ref('/todos/').orderByChild('uid').equalTo(this.props.currentUser.uid)
+    ref.on("child_added", snapshot => {
+      let todo = Object.assign({}, snapshot.val(), { key: snapshot.key })
+      this.props.dispatch({ type: actionTypes.ADD_TODO, payload: { key: snapshot.key, data: todo } })
+    })
+
+    ref.on("child_changed", snapshot => {
+      let todo = Object.assign({}, snapshot.val(), { key: snapshot.key })
+      this.props.dispatch({ type: actionTypes.ADD_TODO, payload: { key: snapshot.key, data: todo } })
+    })
+
+    ref.on("child_removed", snapshot => {
+      this.props.dispatch({ type: actionTypes.REMOVE_TODO, payload: { key: snapshot.key } })
+    })
+  }
+
   onCreateTodoPress() {
     this.props.navigation.navigate('TodoCreate', { onTodoSave: this.onTodoSave })
   }
 
-  onTodoPressed(index) {
-    console.log('onTodoPressed ', index, this)
+  onTodoPressed(key) {
+    console.log('onTodoPressed ', key, this)
     this.props.navigation.navigate('TodoView', {
-      todo: this.props.todos[index],
-      index,
+      todo: this.props.todos[key],
+      key,
       onTodoEditPressed: this.onTodoEditPressed
     })
   }
 
-  onTodoEditPressed(index, data) {
-    this.props.dispatch({ type: actionTypes.UPTATE_CURRENTLY_EDITED_TODO_INDEX, payload: index })
+  onTodoEditPressed(key, data) {
     this.props.navigation.navigate('TodoEdit', {
-      todo: this.props.todos[index],
-      index,
+      todo: this.props.todos[key],
+      key,
       onTodoSave: this.onTodoSave
     })
   }
 
-  onTodoSave(index, values) {
-    let type = index ? actionTypes.UPDATE_TODO : actionTypes.ADD_TODO
+  onTodoSave(key, values) {
+    if (key) {
+      let editedTodo = Object.assign(this.props.todos[key], values)
+      firebase.database().ref(`/todos/${key}`).set(editedTodo).then(response => {
+        console.log('todo was edited')
+        this.props.navigation.navigate('Todos')
+      }).catch(error => {
+        console.log('edit failed', error)
+      })
 
-    let newTodo = Object.assign({}, values, { uid: this.props.currentUser.uid })
-    console.log('adding', newTodo)
+    } else {
+      let newTodo = Object.assign({}, values, { uid: this.props.currentUser.uid })
+      console.log('adding', newTodo)
 
-    firebase.database().ref('/todos/').push(newTodo).then(response => {
-      this.props.navigation.navigate('Todos')
-    }).catch(error => {
-      console.log('errored', error)
-    })
+      firebase.database().ref('/todos/').push(newTodo).then(response => {
+        this.props.navigation.navigate('Todos')
+      }).catch(error => {
+        console.log('add failed', error)
+      })
+    }
   }
 
 
   onTodoMarkedDone(index) {
-    console.log('onTodoMarkedDone', index, this)
-    this.props.dispatch({ type: actionTypes.REMOVE_TODO, payload: index })
+    firebase.database().ref(`/todos/${this.props.todos[index].key}`).remove().then(response => {
+      console.log('todo was removed')
+    }).catch(error => {
+      console.log('todo could not be removed wat do')
+    })
+
   }
 
   render() {
@@ -85,7 +119,8 @@ class Todos extends React.Component {
       <View>
         <View>
           <CustomList
-            data={this.props.todos}
+            data={Object.values(this.props.todos)}
+            keyExtractor={(item, index) => item.key}
             onTodoEditPressed={this.onTodoEditPressed}
             onTodoPressed={this.onTodoPressed}
             onTodoMarkedDone={this.onTodoMarkedDone} />

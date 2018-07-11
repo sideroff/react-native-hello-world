@@ -8,7 +8,7 @@ export default class TodoContainer extends Component {
 
   render() {
     return (
-      <View style={styles.todoContainer}  >
+      <View style={styles.todoContainer}>
         <TouchableOpacity onPress={this.props.onTodoPressed} style={styles.todoInfo}>
           <View>
             <Text style={styles.todoTitle}>{this.props.todo.title}</Text>

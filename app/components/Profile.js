@@ -7,7 +7,6 @@ import Button from './Button'
 
 import actionTypes from './../actionTypes'
 
-
 function mapStateToProps(state) {
   return {}
 }

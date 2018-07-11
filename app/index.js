@@ -12,9 +12,11 @@ import actionTypes from './actionTypes'
 import rootReducer from './reducers'
 
 // remove a depricated method usage warning caused by react native
+// https://github.com/firebase/firebase-js-sdk/issues/97
 import { YellowBox } from 'react-native'
 YellowBox.ignoreWarnings([
-  'Warning: isMounted(...) is deprecated in plain JavaScript React classes.'
+  'Warning: isMounted(...) is deprecated in plain JavaScript React classes.',
+  'Setting a timer'
 ])
 
 

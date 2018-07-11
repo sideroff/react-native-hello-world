@@ -6,8 +6,10 @@ export default class TodoView extends Component {
     super(props)
 
     this.data = this.props.navigation.getParam('todo', null)
-    this.index = this.props.navigation.getParam('index')
+    this.key = this.props.navigation.getParam('key')
     this.onTodoEditPressed = this.props.navigation.getParam('onTodoEditPressed')
+
+    console.log('todo view', this.data)
   }
 
   render() {
@@ -15,7 +17,7 @@ export default class TodoView extends Component {
       <View>
         <Text>{this.data.title}</Text>
         <Text>{this.data.description}</Text>
-        <Button title='Edit' onPress={() => this.onTodoEditPressed(this.index, 'heyy')} />
+        <Button title='Edit' onPress={() => this.onTodoEditPressed(this.key)} />
       </View>
     )
   }

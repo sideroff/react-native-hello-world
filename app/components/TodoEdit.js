@@ -10,15 +10,17 @@ export default class TodoEdit extends Component {
     super(props)
 
     this.data = this.props.navigation.getParam('todo', null)
-    this.index = this.props.navigation.getParam('index')
+    this.key = this.props.navigation.getParam('key')
     this.onTodoSave = this.props.navigation.getParam('onTodoSave')
     this.onPress = this.onPress.bind(this)
+
+    console.log('todo edit', this.key)
   }
 
   onPress() {
     var values = this.refs.todoForm.getValue()
     if (values) {
-      this.onTodoSave(this.index, values)
+      this.onTodoSave(this.key, values)
     }
   }
 

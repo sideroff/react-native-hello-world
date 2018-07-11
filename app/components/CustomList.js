@@ -11,15 +11,16 @@ export default class CustomList extends React.Component {
   render() {
     return (
       <View style={styles.customListContainer}>
+
         <FlatList
           data={this.props.data}
+          keyExtractor={this.props.keyExtractor}
           renderItem={({ index, item }) => {
             return (
               <TodoContainer
                 todo={item}
-                key={index}
-                onTodoPressed={() => this.props.onTodoPressed(index)}
-                onTodoMarkedDone={() => this.props.onTodoMarkedDone(index)} />
+                onTodoPressed={() => this.props.onTodoPressed(item.key)}
+                onTodoMarkedDone={() => this.props.onTodoMarkedDone(item.key)} />
             )
           }} />
       </View>
